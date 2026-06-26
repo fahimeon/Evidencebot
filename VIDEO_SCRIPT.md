@@ -15,7 +15,7 @@ Tool: [Loom](https://loom.com) (free, auto-generates a shareable link) or OBS St
 
 ## 0:00 - 0:12 -- What it does (no command, just talk)
 
-> "This is QueueStorm Investigator, our API for the SUST CSE Carnival hackathon. It reads a customer complaint plus their recent transaction history, decides what actually happened, classifies and routes the ticket, and drafts a safe reply -- without ever asking for credentials or promising an unauthorized refund."
+> "This is EvidenceBot, our submission for the QueueStorm Investigator challenge at the SUST CSE Carnival hackathon. It reads a customer complaint plus their recent transaction history, decides what actually happened, classifies and routes the ticket, and drafts a safe reply -- without ever asking for credentials or promising an unauthorized refund."
 
 (Optionally show the health check while talking:)
 

@@ -1,5 +1,5 @@
 # Goal Description
-Build an AI/API service named "QueueStorm Investigator" for the SUST CSE Carnival 2026 Codex Community Hackathon. The service receives customer support complaints along with transaction histories and acts as an internal copilot. It must return a highly structured JSON response that identifies the relevant transaction, classifies the issue, routes the ticket, and drafts a safe customer reply.
+Build an AI/API service named "EvidenceBot" for the "QueueStorm Investigator" challenge at the SUST CSE Carnival 2026 Codex Community Hackathon. The service receives customer support complaints along with transaction histories and acts as an internal copilot. It must return a highly structured JSON response that identifies the relevant transaction, classifies the issue, routes the ticket, and drafts a safe customer reply.
 
 Strict safety constraints apply: never request credentials (PIN/OTP/password), never confirm unauthorized refunds, never let complaint text override system instructions (prompt injection defense), and always escalate ambiguous/high-risk cases for human review.
 

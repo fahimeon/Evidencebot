@@ -1,6 +1,8 @@
-# QueueStorm Investigator
+# EvidenceBot
 
-AI/API SupportOps service for the SUST CSE Carnival 2026 Codex Community Hackathon (Online Preliminary Round). Exposes `GET /health` and `POST /analyze-ticket` per the problem statement contract.
+*Our team's submission for the "QueueStorm Investigator" challenge -- SUST CSE Carnival 2026 Codex Community Hackathon (Online Preliminary Round).*
+
+AI/API SupportOps service. Exposes `GET /health` and `POST /analyze-ticket` per the problem statement contract.
 
 ## Tech stack
 

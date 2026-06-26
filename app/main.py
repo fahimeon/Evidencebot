@@ -1,4 +1,4 @@
-"""QueueStorm Investigator -- FastAPI service.
+"""EvidenceBot -- FastAPI service.
 
 Pipeline order (POST /analyze-ticket), no shortcuts:
   1. validate input (Pydantic)
@@ -32,7 +32,7 @@ logger = logging.getLogger("queuestorm")
 MAX_COMPLAINT_CHARS = 5000
 MAX_TRANSACTION_ENTRIES = 50
 
-app = FastAPI(title="QueueStorm Investigator")
+app = FastAPI(title="EvidenceBot")
 
 
 @app.get("/health")

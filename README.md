@@ -1,5 +1,7 @@
 # EvidenceBot
 
+> 🌟 **LIVE API URL (Swagger UI):** [https://evidencebot.onrender.com/docs](https://evidencebot.onrender.com/docs) 🌟
+
 Submission for the QueueStorm Investigator challenge at SUST CSE Carnival 2026 Codex Community Hackathon, Online Preliminary Round.
 
 EvidenceBot is an AI/API SupportOps service that exposes the required endpoints:
@@ -86,7 +88,7 @@ python scripts/judge_smoke.py http://127.0.0.1:8000
 Run it against the deployed service:
 
 ```bash
-python scripts/judge_smoke.py https://your-render-url.onrender.com
+python scripts/judge_smoke.py https://evidencebot.onrender.com
 ```
 
 ## AI / model approach
@@ -345,5 +347,5 @@ MODEL_NAME=llama-3.3-70b-versatile
 After deployment, run the judge smoke test against the live URL before submitting:
 
 ```bash
-python scripts/judge_smoke.py https://your-render-url.onrender.com
+python scripts/judge_smoke.py https://evidencebot.onrender.com
 ```

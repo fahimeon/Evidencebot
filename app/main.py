@@ -16,8 +16,8 @@ import logging
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from pydantic import ValidationError
 
 load_dotenv()  # picks up a local .env file; no-op in deployments that set real env vars directly
 
@@ -25,7 +25,7 @@ from app import ai_polish, observability, output_guard, safety
 from app.engine import classifier, matcher
 from app.engine import router as case_router
 from app.engine import templates
-from app.models import AnalyzeRequest
+from app.models import AnalyzeRequest, AnalyzeResponse
 
 logger = logging.getLogger("queuestorm")
 
@@ -38,6 +38,13 @@ app = FastAPI(title="QueueStorm Investigator")
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    # Per the problem statement: invalid JSON or missing/invalid required fields -> 400,
+    # not FastAPI's default 422 (422 is reserved for semantically invalid input, e.g. empty complaint).
+    return JSONResponse(status_code=400, content={"error": "Malformed or invalid request body."})
 
 
 @app.exception_handler(Exception)
@@ -93,20 +100,16 @@ def _run_engine(payload: AnalyzeRequest) -> dict:
     return result
 
 
-@app.post("/analyze-ticket")
-async def analyze_ticket(request: Request):
+@app.post("/analyze-ticket", response_model=AnalyzeResponse)
+async def analyze_ticket(payload: AnalyzeRequest):
+    # FastAPI parses + validates the body against AnalyzeRequest before this function
+    # runs; malformed JSON or missing/invalid required fields are caught by the
+    # RequestValidationError handler above (-> 400). response_model is declared here
+    # purely for accurate OpenAPI/Swagger docs -- the actual response is always
+    # returned as an explicit JSONResponse below so the engine's exact-field output
+    # (already schema-correct via output_guard) is never re-validated/altered.
     timer = observability.Timer()
     with timer:
-        try:
-            body = await request.json()
-        except Exception:
-            return JSONResponse(status_code=400, content={"error": "Invalid JSON body."})
-
-        try:
-            payload = AnalyzeRequest.model_validate(body)
-        except ValidationError:
-            return JSONResponse(status_code=400, content={"error": "Missing or invalid required fields."})
-
         if not payload.complaint or not payload.complaint.strip():
             return JSONResponse(status_code=422, content={"error": "complaint must not be empty."})
 
